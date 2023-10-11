@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    .download-button {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: Calibri, sans-serif;
+    }
+
+    .download-button:hover {
+        background-color: #333; /* Darken the background color on hover */
+    }
+
+    .btn-trading {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: Calibri, sans-serif;
+    }
+
+    .btn-trading:hover {
+        background-color: #333;
+    }
+
+    /* Style for the top row (thead) */
+    #traderTable thead {
+        background-color: black;
+        color: white;
+    }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Top Traders</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#traderTable').DataTable();
+        });
+    </script>
+
+    <!------
+    <script>
+    $(document).ready(function() {
+        $('#traderTable').DataTable({
+            paging: true,        // Enable pagination
+            searching: true,     // Enable search
+            ordering: true,      // Enable sorting
+            responsive: true     // Enable responsive design
+        });
+    });
+    </script>
+    ----->
+</head>
+<body>
+    <h1>Top Traders</h1>
+    <table id="traderTable" class="display">
+        <thead>
+            <tr>
+                <th>Trader ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Product Traded</th>
+                <th>Trading Volume (Second)</th>
+                <th>Trading Volume (Minute)</th>
+                <!---<th>Trading Volume (Hour)</th>-->
+                <th>Profit Percentage</th>
+                <th>Profit Gain</th>
+                <th>Buying Price</th>
+                <th>Selling Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trader in top_traders %}
+            <tr>
+                <td>{{ trader['Trader ID'] }}</td>
+                <td>{{ trader['Date'] }}</td>
+                <td>{{ trader['Time'] }}</td>
+                <td>{{ trader['Product Traded'] }}</td>
+                <td>{{ trader['Trading Volume (Second)'] }}</td>
+                <td>{{ trader['Trading Volume (Minute)'] }}</td>
+                <td>{{ trader['Profit Percentage'] }}</td>
+                <td>{{ trader['Profit Gain'] }}</td>
+                <td>{{ trader['Buying Price'] }}</td>
+                <td>{{ trader['Selling Price'] }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<!---<a href="{{ url_for('download_trader_reports_route') }}" class="btn btn-primary download-button">Download in Excel</a>-->
+<a href="{{ url_for('download_in_excel') }}" class="download-button">Download Report</a>
+
+<form method="POST" action="/trade">
+    <button type="submit" class="btn btn-primary btn-trading">Perform Trading</button>
+</form>
+
+</body>
+</html>
